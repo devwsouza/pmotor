@@ -1,0 +1,31 @@
+# CI mínimo do PreçoPro (SPEC-001 §Quality Gates)
+# PR → install → typecheck → test → build. Falha em qualquer etapa bloqueia o merge.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck (TypeScript strict)
+        run: npx tsc --noEmit
+
+      - name: Test (Vitest — Pricing Engine)
+        run: npx vitest run
+
+      - name: Build
+        run: npm run build

@@ -1,1 +1,133 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Archivo Black", system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --color-paper: #faf4ef;
+  --color-blush: #f5e2da;
+  --color-ink: #23121d;
+  --color-ink-soft: #5c4152;
+  --color-plum: #2a1226;
+  --color-plum-2: #3d1b34;
+  --color-plum-3: #55274a;
+  --color-lacquer: #c81046;
+  --color-lacquer-deep: #990c35;
+  --color-gold: #e8a33d;
+  --color-jade: #157a5e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-lacquer);
+  color: var(--color-paper);
+}
+
+/* ---------- texturas ambientes ---------- */
+.halftone-dark {
+  background-image: radial-gradient(rgba(200, 16, 70, 0.16) 1.1px, transparent 1.1px);
+  background-size: 18px 18px;
+}
+.halftone-light {
+  background-image: radial-gradient(rgba(35, 18, 29, 0.1) 1.1px, transparent 1.1px);
+  background-size: 16px 16px;
+}
+.stripes-gold {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(232, 163, 61, 0.9) 0 12px,
+    rgba(35, 18, 29, 0.95) 12px 24px
+  );
+}
+.grid-lines {
+  background-image: linear-gradient(rgba(250, 244, 239, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 244, 239, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ---------- movimento ---------- */
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee-x 30s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-12px) rotate(var(--tilt, 0deg));
+  }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+@keyframes ping-dot {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  80%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: ping-dot 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- componentes ---------- */
+.focus-ring:focus-visible {
+  outline: 3px solid var(--color-lacquer);
+  outline-offset: 2px;
+}
+
+input[type="range"] {
+  accent-color: var(--color-lacquer);
+}
+
+.bar-anim {
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.price-tick {
+  font-variant-numeric: tabular-nums;
+}
