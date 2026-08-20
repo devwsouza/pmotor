@@ -1,5 +1,30 @@
+# Dependências
 node_modules/
-.next/
+
+# Build (gerado pelo CI/local — nunca versionar)
 dist/
 build/
+.next/
+
+# Testes / cobertura
+coverage/
+*.lcov
+
+# Segredos e ambiente (NUNCA commitar — §39)
+.env
+.env.*
+!.env.example
+
+# Logs
 *.log
+npm-debug.log*
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Cache
+.eslintcache
+*.tsbuildinfo
